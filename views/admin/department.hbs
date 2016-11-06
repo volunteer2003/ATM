@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>Control panel - Department</title>
+    <link rel='stylesheet' href='/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='/css/adminStyle.css' />
+    <link rel='stylesheet' href='/css/pepper-grinder/jquery-ui-1.10.3.custom.min.css' />
+    <script type="text/javascript" src='/js/jquery-1.9.1.min.js'></script>
+    <script type="text/javascript" src='/js/jquery-ui-1.10.3.custom.min.js'></script>
+    <script type="text/javascript" src='/js/bootstrap.min.js'></script>
+</head>
+<body class="admin-department">
+<header class="navbar">
+    <a class="brand" href="/" title="home page">Weekly Report</a>
+    <ul class="nav">
+        <li class="active"><a href="/admin">Department</a></li>
+        <li><a href="/admin/users">User</a></li>
+        <li><a href="/admin/admingroup">Authority</a></li>
+        <li ><a href="/logout">Logout</a></li>
+    </ul>
+</header>
+<div id="dialog-confirm" title="Delete department" style="display:none">
+    <p>Are you sure to delete the department？</p>
+</div>
+<section id="department" class="container">
+    <div id="newDepartment" data-bind="css:{update: updateDepartment()}">
+        <div class="title"  data-bind="visible: !updateDepartment()"><i class="icon-book"></i><h2>New department</h2> </div>
+        <div class="title"  data-bind="visible: updateDepartment()"><i class=" icon-edit"></i><h2>Edit department</h2> </div>
+        <div data-bind="visible: !updateDepartment()">
+        <label for="departmentName">Department name:<!--<span data-bind="css:{errorTip: !validDepartmentName()}, visible: !validDepartmentName()">不能为空</span>--></label>
+        <input type="text" required="required" id="departmentName" data-bind="value:departmentName, valueUpdate:'keyup'"/></div>
+        <div data-bind="visible: updateDepartment()">
+            <label for="updateDepartmentName">Department name:<!--<span data-bind="css:{errorTip: !validUpdateDepartmentName()}, visible: !validUpdateDepartmentName()">不能为空</span>--></label>
+            <input type="text" required="required" id="updateDepartmentName" data-bind="value:updateDepartmentName, valueUpdate:'keyup'"/></div>
+
+        <label for="parentDepartment">Superior department:</label>
+        <select id="parentDepartment"
+                data-bind="options: departments, optionsText:'name',value:selectedParentDepartment, optionsCaption: 'NULL'"></select>
+        <div data-bind="visible: !updateDepartment()"><input id="createBtn" type="button" value="Create" class="btn btn-primary"
+                    data-bind="click:submit, enable: validDepartmentName() && validDepartmentRelation()" required="false"/></div>
+
+        <div data-bind="visible: updateDepartment()"><input id="updateBtn" type="button" value="Update" class="btn btn-primary"
+                    data-bind="enable: validUpdateDepartmentName() && validUpdateDepartmentRelation()" required="false"/>
+            <input id="cancelUpdateBtn" type="button" value="Cancle" class="btn btn-primary"
+                   data-bind="enable: validUpdateDepartmentName()" required="false"/></div>
+    </div>
+
+    <div id="departmentTree">
+
+    </div>
+</section>
+<script type="text/javascript" src='/js/knockout-2.2.1.js'></script>
+<script type="text/javascript" src='/js/TreeList.js'></script>
+<script type="text/javascript" src='/js/admin/DepartmentUserMode.js'></script>
+<script type="text/javascript" src='/js/admin/department.js'></script>
+</body>
+</html>

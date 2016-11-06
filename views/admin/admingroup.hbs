@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>Control panel - Authority</title>
+    <link rel='stylesheet' href='/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='/css/adminStyle.css' />
+    <link rel='stylesheet' href='/css/pepper-grinder/jquery-ui-1.10.3.custom.min.css' />
+    <script type="text/javascript" src='/js/jquery-1.9.1.min.js'></script>
+    <script type="text/javascript" src='/js/jquery-ui-1.10.3.custom.min.js'></script>
+    <script type="text/javascript" src='/js/bootstrap.min.js'></script>
+</head>
+<body class="admin-admingroup">
+<header class="navbar">
+    <a class="brand" href="/" title="home page">Weekly Report</a>
+    <ul class="nav">
+        <li><a href="/admin">Department</a></li>
+        <li><a href="/admin/users">User</a></li>
+        <li class="active"><a href="/admin/admingroup">Authority</a></li>
+        <li ><a href="/logout">Logout</a></li>
+    </ul>	
+</header>
+<div id="dialog-confirm" title="Delete admin" style="display:none">
+    <p>Are you sure to delete the admin?</p>
+</div>
+<section class="container">
+  <div id="newAdministrator">
+    <div class="title"><i class=" icon-user"></i><h2>New administrator</h2> </div>
+      <label for="depar">Department name:</label>
+      <select id="depar"
+              data-bind="options: departments, optionsText:'name',value:selectedDepartment, optionsCaption: 'Choose...'"></select>
+    <label for="users">Department member:</label>
+    <select id="users"
+            data-bind="options: users, optionsText:'name',value:selectedUser"></select>
+    <div><input id="submitBtn" type="button" value="Submit" class="btn btn-primary" required="false"
+                data-bind="click:submit, enable: valid()"/></div>
+    </div>
+  </div>
+    <div id="adminlist">
+        <div class="title"><i class="icon-list"></i><h2>Administrators list</h2> </div>
+        <ul data-bind="foreach: admins" class="unstyle">
+            <li><span data-bind="text: name"></span><a href="#" class="delete" data-bind="attr:{userId: id}" title="删除管理员权限"><i class="icon-remove"></i></a></li>
+        </ul>
+    </div>
+</section>
+<script type="text/javascript" src='/js/knockout-2.2.1.js'></script>
+<script type="text/javascript" src='/js/admin/DepartmentUserMode.js'></script>
+<script type="text/javascript" src='/js/admin/admingroup.js'></script>
+</body>
+</html>

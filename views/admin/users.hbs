@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>Control panel - User</title>
+    <link rel='stylesheet' href='/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='/css/pepper-grinder/jquery-ui-1.10.3.custom.min.css' />
+    <link rel='stylesheet' href='/css/adminStyle.css' />
+    <script type="text/javascript" src='/js/jquery-1.9.1.min.js'></script>
+    <script type="text/javascript" src='/js/jquery-ui-1.10.3.custom.min.js'></script>
+    <script type="text/javascript" src='/js/bootstrap.min.js'></script>
+</head>
+<body class="admin-users">
+<header class="navbar">
+    <a class="brand" href="/" title="home page">Weekly Report</a>
+    <ul class="nav">
+        <li><a href="/admin/">Department</a></li>
+        <li class="active"><a href="/admin/users">User</a></li>
+        <li><a href="/admin/admingroup">Authority</a></li>
+        <li ><a href="/logout">Logout</a></li>
+    </ul>
+</header>
+<div id="dialog-confirm" title="Delete user" style="display:none">
+    <p>Are you sure to delete the user?</p>
+</div>
+<section id="users" class="container">
+  <div id="newUser"  data-bind="visible: !updateUser()">
+    <div class="title"><i class="icon-user"></i><h2>Create new user</h2> </div>
+    <label for="userName">User name:
+        <span data-bind="css:{errorTip: !validUserName()}, visible: !validUserName()">should more then 2 letter</span>
+        <span data-bind="css:{errorTip: showHasUserTip()}, visible: showHasUserTip()">The user exists</span></label>
+    <input id="userName" type="text" required="required" name="userName"
+           data-bind="value: userName, valueUpdate:'keyup',event: {focusout: checkUserExit}" />
+    <br />
+    <label for="password">PASSCODE:
+        <span data-bind="css:{errorTip: !validPassword()}, visible: !validPassword()">should more then 5 letter</span></label>
+    <input type="password" required="required" name="password" id="password"
+           data-bind="value:password, valueUpdate:'keyup'"/>
+    <label for="repassword">Re-type PASSCODE:
+        <span data-bind="css:{errorTip: !validRePassword()}, visible: !validRePassword()">password not matched</span></label>
+    <input type="password" required="required" name="repassword" id="repassword"
+           data-bind="value:repassword, valueUpdate:'keyup'"/>
+    <br/>
+        <label for="userDepartment">Department:<span data-bind="css:{errorTip: !selectedDepartment()}, visible: !selectedDepartment()">Required field</span></label>
+         <select id="userDepartment" name="userDepartment1"
+                 data-bind="options: departments, optionsText:'name', value:selectedDepartment, optionsCaption: 'Choose...'"></select>
+        <label for="superior1">Superior:</label>
+        <select id="superior1" name="superior1"
+                data-bind="options: superiors, optionsText:'name', value:selectedSuperior, optionsCaption: 'Choose...'"></select>
+    <div><input id="submitBtn" type="submit" value="Submit" class="btn btn-primary"
+                data-bind="click:submit, enable: valid()" /></div>
+  </div>
+    <div id="updateUser" data-bind="visible: updateUser()">
+        <div class="title"><i class="icon-edit"></i><h2>Update user's information</h2> </div>
+        <label for="userName1">User name:
+            <span data-bind="css:{errorTip: !validUserName1()}, visible: !validUserName1()">should more then 2 letter</span></label>
+        <input id="userName1" type="text" required="required" name="userName1"
+               data-bind="value: userName1, valueUpdate:'keyup'" />
+        <br />
+        <label for="password1">PASSCODE: 
+            <!-- <span data-bind="css:{errorTip: !validPassword1()}, visible: !validPassword1()">should more then 5 letter</span>--></label>
+        <input type="password"  name="password1" id="password1"
+               data-bind="value:password1, valueUpdate:'keyup'"/>
+        <label for="repassword1">Re-type PASSCODE:
+            <span data-bind="css:{errorTip: !validRePassword1()}, visible: !validRePassword1()">password not matched</span></label>
+        <input type="password" name="repassword1" id="repassword1"
+               data-bind="value:repassword1, valueUpdate:'keyup'"/>
+        <br/>
+        <label for="userDepartment1">Department:<span data-bind="css:{errorTip: !selectedDepartment1()}, visible: !selectedDepartment1()">must choose one department</span></label>
+        <select id="userDepartment1" name="userDepartment1"
+                data-bind="options: departments, optionsText:'name', value:selectedDepartment1, optionsCaption: 'Choose...'"></select>
+        <label for="superior">Superior:</label>
+        <select id="superior" name="superior"
+                data-bind="options: superiors1, optionsText:'name', value:selectedSuperior1, optionsCaption: 'Choose...'"></select>
+        <div><input id="updateBtn" type="submit" value="Update" class="btn btn-primary"
+                    data-bind="enable: valid1()" />
+
+            <input id="cancelBtn" type="submit" value="Cancle" class="btn btn-primary"/></div>
+    </div>
+  <div id="usersTree"></div>
+</section>
+<script type="text/javascript" src='/js/knockout-2.2.1.js'></script>
+<script type="text/javascript" src='/js/TreeList.js'></script>
+<script type="text/javascript" src='/js/admin/DepartmentUserMode.js'></script>
+<script type="text/javascript" src='/js/admin/users.js'></script>
+</body>
+</html>
